@@ -1,3 +1,53 @@
+/*
+
+Pseudocode
+
+psvm main {
+	menu()
+}
+
+static void menu() {
+	
+	totalOfPurchases += // calculate and add the total from the retrieved string from purchase()
+	totalBalance = income - totalOfPurchases 
+	listOfPurchases += // add all the Strings of purchase() here as a string 
+	
+
+	// 1) income 
+		// add income 
+	// 2) purchase
+		// purchase() 
+	// 3) show list of purchases
+		// output listOfPurchases 
+	// 4) balance remaining 
+		// output totalBalance 
+	// 0) exit 
+
+
+}
+
+static String purchase() {
+	// option 2
+	input item
+	input price
+	if (price < income) {
+		// no income
+	} else {
+		String listOfPurchase += item + " " + price
+	}
+	// output "purchase was added!" 
+	return listOfPurchase 
+	// return the string here and calculate the price later 
+
+}
+
+static String listOfPurchases(String outputListOfPurchase) {
+	
+}
+
+
+*/
+
 import java.util.*;
 
 public class Main {
