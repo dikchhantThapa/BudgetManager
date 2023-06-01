@@ -8,18 +8,71 @@ To end the input, the user should type End-of-file symbol that tells your operat
 Notice the greater-than symbol followed by a space (> ) is not a part of user input, it just represents the user input after that sign and space. 
 
 ```
-> Almond 250gm $35.43        
-> LEGO DUPLO Town Farm Animals $10.10              
-> Sensodyne Pronamel Toothpaste $19.74      
-> Hershey's milk chocolate bars $8.54            
-> Gildan LT $8.61        
+Choose your action:
+1) Add income
+2) Add purchase
+3) Show list of purchases
+4) Balance
+0) Exit
+> 1
 
-Almond 250gm $35.43          
-LEGO DUPLO Town Farm Animals $10.10           
-Sensodyne Pronamel Toothpaste $19.74            
-Hershey's milk chocolate bars $8.54                
-Gildan LT $8.61           
-  
-Total: $82.42
+Enter income:
+> 1000
+Income was added!
+
+Choose your action:
+1) Add income
+2) Add purchase
+3) Show list of purchases
+4) Balance
+0) Exit
+> 4
+
+Balance: $1000.00
+
+Choose your action:
+1) Add income
+2) Add purchase
+3) Show list of purchases
+4) Balance
+0) Exit
+> 3
+
+The purchase list is empty
+
+Choose your action:
+1) Add income
+2) Add purchase
+3) Show list of purchases
+4) Balance
+0) Exit
+> 2
+
+Enter purchase name:
+>Red Fuji Apple
+Enter its price:
+> 5.99
+Purchase was added!
+
+Choose your action:
+1) Add income
+2) Add purchase
+3) Show list of purchases
+4) Balance
+0) Exit
+> 3
+
+Red Fuji Apple $5.99
+Total sum: $5.99
+
+Choose your action:
+1) Add income
+2) Add purchase
+3) Show list of purchases
+4) Balance
+0) Exit
+> 0
+
+Bye!
 
 ```
