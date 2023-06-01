@@ -1,8 +1,12 @@
 # BudgetManager
 
-This program reads and processes every line user inputs in the format *"Item Name and $Amount"*. It reads data from the console and at the end displays the list of all purchases and its total amount as: `Total: $22.00`
+This program displays a Budget Manager menu that consists of 4 items and functions accordingly. 
+  1. **Add income** - We must track both our expenses and our income. When this item is selected, the program asks to enter the amount of income.
+  2. **Add Purchase** - This item adds a purchase to the list.
+  3. **Show the list of purchases** - This menu item displays a list of all expenses and incomes in the order they were made.
+  4. **Balance** - Shows the balance.
+  5. **Exit** - Exits the program. For convenience and ease of readability, this is item **0**, not item 5.    
 
-To end the input, the user should type End-of-file symbol that tells your operating system that no more input will be provided(**Ctrl+D** on Linux and Mac and **Ctrl+Z** on Windows). 
 
 ## Example
 Notice the greater-than symbol followed by a space (> ) is not a part of user input, it just represents the user input after that sign and space. 
