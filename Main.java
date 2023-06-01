@@ -1,63 +1,13 @@
-/*
-
-Pseudocode
-
-psvm main {
-	menu()
-}
-
-static void menu() {
-	
-	totalOfPurchases += // calculate and add the total from the retrieved string from purchase()
-	totalBalance = income - totalOfPurchases 
-	listOfPurchases += // add all the Strings of purchase() here as a string 
-	
-
-	// 1) income 
-		// add income 
-	// 2) purchase
-		// purchase() 
-	// 3) show list of purchases
-		// output listOfPurchases 
-	// 4) balance remaining 
-		// output totalBalance 
-	// 0) exit 
-
-
-}
-
-static String purchase() {
-	// option 2
-	input item
-	input price
-	if (price < income) {
-		// no income
-	} else {
-		String listOfPurchase += item + " " + price
-	}
-	// output "purchase was added!" 
-	return listOfPurchase 
-	// return the string here and calculate the price later 
-
-}
-
-static String listOfPurchases(String outputListOfPurchase) {
-	
-}
-
-
-*/
-
 import java.util.*;
 
 public class Main {
   
   private static String outputListOfPurchases = "";
-  public static void main(String[] args) {
+  private static double totalPurchases = 0.0;
+  private static double income = 0.0;
 
-      //Scanner scanner = new Scanner(System.in);
+  public static void main(String[] args) {
       menu();
-    
   }
 
   public static void menu() {
@@ -74,29 +24,34 @@ public class Main {
     // read user Pick
     int userMenuInput = scanner.nextInt();
     switch (userMenuInput) {
+      case 1:
+        System.out.println("\nEnter income: ");
+        income = scanner.nextDouble();
+        System.out.println("Income was added!\n");
+        menu();
       case 2:
         outputListOfPurchases += purchase() + "\n";
-        
         menu();
       case 3:
         if (outputListOfPurchases == "") {
           System.out.println("\nThe purchase list is empty\n");
         }  else {
           System.out.println();
-          System.out.println(outputListOfPurchases);
-          System.out.println("Total sum: $" + total(outputListOfPurchases));
+          System.out.print(outputListOfPurchases);
+          totalPurchases = total(outputListOfPurchases);
+          System.out.println("Total sum: $" + totalPurchases);
           System.out.println();
         }
         menu();
+      case 4:
+        System.out.println("\nBalance: $" + (income - totalPurchases) + "\n");
+        menu();
       case 0:
+        System.out.println("\nBye!");
         System.exit(0);
         break;
         
-    
-
     }
-
-
   }
 
   public static String purchase() {
@@ -112,7 +67,7 @@ public class Main {
     System.out.println("Enter its price: ");
     double itemPrice = scanner.nextDouble();
     
-    System.out.println("\nPurchase was added!\n");
+    System.out.println("Purchase was added!\n");
 
     listOfPurchase += itemName + " $" + itemPrice;
     return listOfPurchase;      
@@ -140,45 +95,6 @@ public class Main {
     // System.out.print("Total: $");
     // System.out.printf("%.2f", total);
     return total;
-  
-}
-  
-    
-    // public static double purchase () {
-
-    //     Scanner scanner = new Scanner(System.in);
-
-    //     String input = "";
-    //     String outputUserChoices = "";
-    //     double total = 0.0;
-
-    //     while (scanner.hasNextLine()) {
-    //         input = scanner.nextLine();
-    //         outputUserChoices += input + "\n";
-
-    //         if (input.contains("$")) {
-    //             // delete $ and convert Strings into multiple strings
-    //             String[] parts = input.split("\\$");
-
-    //             // We do int i = 1, since we don't need the first part before $
-    //             for (int i = 1; i < parts.length; i++) {
-    //                 // Extract the numeric digits and decimal point from the substring
-    //                 String numberString = parts[i].replaceAll("[^\\d.]+", "");
-    //                 if (!numberString.isEmpty()) {
-    //                     // convert the extracted String into a double
-    //                     double number = Double.parseDouble(numberString);
-    //                     total += number;    // add the number to our total
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     System.out.println(outputUserChoices);
-    //     System.out.print("Total: $");
-    //     System.out.printf("%.2f", total);
-
-    //     return total;
-
-    // }
+  }
   
 }
