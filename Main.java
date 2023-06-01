@@ -75,15 +75,16 @@ public class Main {
     int userMenuInput = scanner.nextInt();
     switch (userMenuInput) {
       case 2:
-        outputListOfPurchases += purchase();
+        outputListOfPurchases += purchase() + "\n";
+        
         menu();
-        //break;
       case 3:
         if (outputListOfPurchases == "") {
           System.out.println("\nThe purchase list is empty\n");
         }  else {
           System.out.println();
           System.out.println(outputListOfPurchases);
+          System.out.println("Total sum: $" + total(outputListOfPurchases));
           System.out.println();
         }
         menu();
@@ -117,6 +118,30 @@ public class Main {
     return listOfPurchase;      
     
   }
+
+  public static double total(String input) {
+    double total = 0.0;
+    if (input.contains("$")) {
+      // delete $ and convert Strings into multiple strings
+      String[] parts = input.split("\\$");
+  
+      // We do int i = 1, since we don't need the first part before $
+      for (int i = 1; i < parts.length; i++) {
+        // Extract the numeric digits and decimal point from the substring 
+        String numberString = parts[i].replaceAll("[^\\d.]+", "");
+        if (!numberString.isEmpty()) {
+          // convert the extracted String into a double
+          double number = Double.parseDouble(numberString);
+          total += number;    // add the number to our total 
+        }
+      } 
+    }
+  
+    // System.out.print("Total: $");
+    // System.out.printf("%.2f", total);
+    return total;
+  
+}
   
     
     // public static double purchase () {
