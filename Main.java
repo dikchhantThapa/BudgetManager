@@ -38,7 +38,8 @@ public class Main {
         int purchaseInput = scanner.nextInt();
         switch(purchaseInput) {
           case 1:
-            TypesOfProducts.FOOD.purchases.add(purchase());
+            outputListOfPurchases += purchase() + "\n";        
+            TypesOfProducts.FOOD.purchases.add(outputListOfPurchases);
             System.out.println(TypesOfProducts.FOOD.purchases);
             map.put(1, TypesOfProducts.FOOD);
             System.out.println(map);
@@ -46,9 +47,16 @@ public class Main {
             break;
         }
         // ** need to fix this line later (this is only a variable for output)
-        outputListOfPurchases += purchase() + "\n";        
+        
         menu();
       case 3:
+        System.out.println("Choose the type of purchase");
+        System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) All \n6) Back"); 
+        int outputPurchases = scanner.nextInt(); 
+        for (var val : map.entrySet()) {
+          System.out.println(map.get(outputPurchases));
+        }
+        
         if (outputListOfPurchases == "") {
           System.out.println("\nThe purchase list is empty\n");
         }  else {
