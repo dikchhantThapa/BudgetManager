@@ -14,6 +14,8 @@ public class Main {
     
     Scanner scanner = new Scanner(System.in);
 
+    HashMap<Integer, TypesOfProducts> map = new HashMap<>();
+
     System.out.println("Choose your action:");
     System.out.println("1) Add income");
     System.out.println("2) Add purchase");
@@ -30,7 +32,21 @@ public class Main {
         System.out.println("Income was added!\n");
         menu();
       case 2:
-        outputListOfPurchases += purchase() + "\n";
+        // inside user purchase list 
+        System.out.println("Choose the type of purchase");
+        System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) All \n6) Back"); 
+        int purchaseInput = scanner.nextInt();
+        switch(purchaseInput) {
+          case 1:
+            TypesOfProducts.FOOD.purchases.add(purchase());
+            System.out.println(TypesOfProducts.FOOD.purchases);
+            map.put(1, TypesOfProducts.FOOD);
+            System.out.println(map);
+          case 6:
+            break;
+        }
+        // ** need to fix this line later (this is only a variable for output)
+        outputListOfPurchases += purchase() + "\n";        
         menu();
       case 3:
         if (outputListOfPurchases == "") {
