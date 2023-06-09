@@ -7,6 +7,8 @@ public class Main {
 
   private static List<String> foodPurchases = new ArrayList<>();
   private static List<String> clothesPurchases = new ArrayList<>();
+  private static List<String> entertainmentPurchases = new ArrayList<>();
+  private static List<String> otherPurchases = new ArrayList<>();
 
   public static void main(String[] args) {
       menu();
@@ -15,9 +17,7 @@ public class Main {
   public static void menu() {
     
     Scanner scanner = new Scanner(System.in);
-
-    HashMap<Integer, TypesOfProducts> map = new HashMap<>();
-
+  
     System.out.println("Choose your action:");
     System.out.println("1) Add income");
     System.out.println("2) Add purchase");
@@ -35,25 +35,31 @@ public class Main {
         menu();
       case 2:
         // inside user purchase list 
-        System.out.println("Choose the type of purchase");
+        System.out.println("\nChoose the type of purchase");
         System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) All \n6) Back"); 
         int purchaseInput = scanner.nextInt();
         
         switch(purchaseInput) {
           case 1:
-            foodPurchases.add(purchase("food"));
+            foodPurchases.add(purchase());
             break;
           case 2:
-            clothesPurchases.add(purchase("clothes"));
+            clothesPurchases.add(purchase());
             break;
-          case 6:
+          case 3:
+            entertainmentPurchases.add(purchase());
+            break;
+          case 4:
+            otherPurchases.add(purchase());
+            break;
+          case 5:
             break;
         }
         
         menu();
         
       case 3:
-        System.out.println("Choose the type of purchase");
+        System.out.println("\nChoose the type of purchases");
         System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) All \n6) Back"); 
         int outputPurchases = scanner.nextInt(); 
         switch(outputPurchases) {
@@ -79,6 +85,27 @@ public class Main {
               System.out.println();
             }
             break;
+          case 3:
+            if (entertainmentPurchases.isEmpty()) {
+              System.out.println("The entertainment purchase list is empty\n");
+            }  else {
+              for (String purchase : entertainmentPurchases) {
+                System.out.println(purchase);
+              }
+              System.out.println("Total sum: $" + total(entertainmentPurchases));
+              System.out.println();
+            }
+            break;
+          case 4:
+            if (otherPurchases.isEmpty()) {
+              System.out.println("The other purchase list is empty\n");
+            }  else {
+              for (String purchase : otherPurchases) {
+                System.out.println(purchase);
+              }
+              System.out.println("Total sum: $" + total(otherPurchases));
+              System.out.println();
+            }
         }
         
         menu();
@@ -93,7 +120,7 @@ public class Main {
     }
   }
 
-  public static String purchase(String purchaseType) {
+  public static String purchase() {
     Scanner scanner = new Scanner(System.in);
 
     String listOfPurchase = "";
