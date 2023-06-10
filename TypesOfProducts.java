@@ -15,5 +15,6 @@ public enum TypesOfProducts {
     this.sum = sum;
     this.purchases = purchases;
   }
-    
+
+  
 }

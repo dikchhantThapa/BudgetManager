@@ -110,6 +110,7 @@ public class Main {
                 System.out.println("Total sum: $" + total(otherPurchases));
                 System.out.println();
               }
+              break;
             case 5:
               System.out.println("\nAll: ");
               for (String purchase : foodPurchases) {
@@ -128,6 +129,7 @@ public class Main {
               totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
               System.out.printf("Total sum: $%.2f", totalPurchases);
               System.out.println("\n");
+              break;
           }
 
           menu();
