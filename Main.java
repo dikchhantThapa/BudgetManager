@@ -37,7 +37,7 @@ public class Main {
         case 2:
           // inside user purchase list
           System.out.println("\nChoose the type of purchase");
-          System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) All \n6) Back");
+          System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) Back");
 
           int purchaseInput = scanner.nextInt();
 
