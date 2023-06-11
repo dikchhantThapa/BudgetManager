@@ -7,7 +7,7 @@ This program displays a Budget Manager menu that consists of a Main Menu of item
   2. **Add Purchase** - This item adds a purchase to the list.
   3. **Show the list of purchases** - This menu item displays a list of all expenses and incomes in the order they were made.
   4. **Balance** - Shows the balance.
-  5. **Exit** - Exits the program. For convenience and ease of readability, this is item **0**, not item 5.    
+  0. **Exit** - Exits the program. For convenience and ease of readability, this is item **0**, not item 5.    
 
 
 **Purchase Menu**
