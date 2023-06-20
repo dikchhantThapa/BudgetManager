@@ -1,4 +1,7 @@
 import java.util.*;
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 public class Main {
 
@@ -23,6 +26,8 @@ public class Main {
     System.out.println("2) Add purchase");
     System.out.println("3) Show list of purchases");
     System.out.println("4) Balance");
+    System.out.println("5) Save");
+    System.out.println("6) Load");
     System.out.println("0) Exit");
 
 
@@ -140,8 +145,9 @@ public class Main {
               }
 
               totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
-              System.out.printf("Total sum: $%.2f", totalPurchases);
+              System.out.printf("Total sum: $%.2f", totalPurchases);              
               System.out.println("\n");
+
               break;
 
             case "6":
@@ -158,6 +164,12 @@ public class Main {
         totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
         System.out.println("\nBalance: $" + (income - totalPurchases) + "\n");
         menu();
+
+      case "5":
+        savePurchasesToFile();
+        System.out.println("\nPurchases were saved!");
+        menu();
+        
       case "0":
         System.out.println("\nBye!");
         System.exit(0);
@@ -206,6 +218,43 @@ public class Main {
     }
 
     return total;
+  }
+
+  public static void savePurchasesToFile() {
+    try {
+      File file = new File("purchases.txt");
+      PrintWriter writer = new PrintWriter(file);
+
+      writer.println("All Purchases: ");
+
+      // writer.println("Food purchases: ");
+      for (String purchase : foodPurchases) {
+        writer.println(purchase);
+      }
+
+      // writer.println("\nClothes purchases: ");
+      for (String purchase : clothesPurchases) {
+        writer.println(purchase);
+      }
+
+      // writer.println("\nEntertainment purchases: ");
+      for (String purchase : entertainmentPurchases) {
+        writer.println(purchase);
+      }
+
+      // writer.println("\nOther purchases: ");
+      for (String purchase : otherPurchases) {
+        writer.println(purchase);
+      }
+      
+      totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
+      writer.println("\nTotal sum: $" + totalPurchases);
+      
+      
+      writer.close();
+    }  catch (IOException e) {
+      System.out.println("Error saving purchases to file"); 
+    }
   }
 
 }
