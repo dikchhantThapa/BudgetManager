@@ -1,9 +1,10 @@
 All Purchases: 
-Vegetables $47.97
-tshirts and shorts $56.67
-shoes $115.99
-netflix $11.99
-guitar picks $5.0
-county park parking $6.0
+Food purchases: 
+cabbage $2.99
+Clothes purchases: 
+tshirts $2.99
+Entertainment purchases: 
+Other purchases: 
 
-Total sum: 243.62
+Balance: $994.02
+
