@@ -43,8 +43,6 @@ public class Main {
         System.out.println("\nChoose the type of purchase");
         System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) Back");
 
-        //   int purchaseInput = scanner.nextInt();
-
         String purchaseInput = scanner.nextLine();
 
         while (purchaseInput != "5") {
@@ -200,10 +198,13 @@ public class Main {
     // item price
     System.out.println("Enter its price: ");
     double itemPrice = scanner.nextDouble();
+    String formattedPrice = String.format("%.2f", itemPrice);
+    // converting every item Price into a String with 2 decimal values
 
     System.out.println("Purchase was added!\n");
 
-    listOfPurchase += itemName + " $" + itemPrice;
+    // listOfPurchase += itemName + " $" + itemPrice;
+    listOfPurchase += itemName + " $" + formattedPrice;
     return listOfPurchase;
 
   }
