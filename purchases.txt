@@ -1,10 +1,8 @@
 All Purchases: 
-Food purchases: 
-cabbage $2.99
-Clothes purchases: 
-tshirts $2.99
-Entertainment purchases: 
-Other purchases: 
-
-Balance: $994.02
-
+cabbages $13.42
+milk $3.50
+tshirts $40.00
+shoes $119.09
+vests $10 each 10 total $100.01
+netflix $19.99
+Total sum: $296.01
