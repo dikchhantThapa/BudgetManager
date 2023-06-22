@@ -43,8 +43,6 @@ public class Main {
         System.out.println("\nChoose the type of purchase");
         System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) Back");
 
-        //   int purchaseInput = scanner.nextInt();
-
         String purchaseInput = scanner.nextLine();
 
         while (purchaseInput != "5") {
@@ -144,9 +142,10 @@ public class Main {
               for (String purchase : otherPurchases) {
                 System.out.println(purchase);
               }
-
+          
               totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
-              System.out.printf("Total sum: $%.2f", totalPurchases);              
+              // System.out.println("Total sum: $" + totalPurchases);       
+              System.out.printf("Total sum: $%.2f", totalPurchases);
               System.out.println("\n");
 
               break;
@@ -162,16 +161,24 @@ public class Main {
         }
 
       case "4":
-        // come back
-        totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
-        System.out.println("\nBalance: $" + (income - totalPurchases) + "\n");
+        if (loadedBalance != 0.0) {
+          System.out.println("\nBalance: $" + loadedBalance);
+        }  else {
+          totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
+          System.out.println("\nBalance: $" + (income - totalPurchases) + "\n");
+        }
         menu();
 
       case "5":
         savePurchasesToFile();
         System.out.println("\nPurchases were saved!");
         menu();
-        
+
+      case "6":
+        loadPurchasesFromFile();
+        System.out.println("\nPurchases were loaded!");
+        menu();
+
       case "0":
         System.out.println("\nBye!");
         System.exit(0);
@@ -193,15 +200,17 @@ public class Main {
     System.out.println("Enter its price: ");
     double itemPrice = scanner.nextDouble();
     String formattedPrice = String.format("%.2f", itemPrice);
-    // converting every item price into a String with 2 decimal values
+    // converting every item Price into a String with 2 decimal values
 
     System.out.println("Purchase was added!\n");
 
+    // listOfPurchase += itemName + " $" + itemPrice;
     listOfPurchase += itemName + " $" + formattedPrice;
     return listOfPurchase;
 
   }
-
+  
+  
   public static double total(List<String> purchases) {
     double total = 0.0;
 
@@ -210,7 +219,7 @@ public class Main {
       int indexLast =  input.lastIndexOf("$");
       
       // extract the numeric portion after the last '$' character
-      String numberString = input.substring(indexLast + 1);
+      String numberString = input.substring(indexLast + 1); 
       
       if (!numberString.isEmpty()) {
         // convert the extracted String into a double
@@ -229,35 +238,96 @@ public class Main {
 
       writer.println("All Purchases: ");
 
-      // writer.println("Food purchases: ");
+      writer.println("Food purchases: ");
       for (String purchase : foodPurchases) {
         writer.println(purchase);
       }
 
-      // writer.println("\nClothes purchases: ");
+      writer.println("Clothes purchases: ");
       for (String purchase : clothesPurchases) {
         writer.println(purchase);
       }
 
-      // writer.println("\nEntertainment purchases: ");
+      writer.println("Entertainment purchases: ");
       for (String purchase : entertainmentPurchases) {
         writer.println(purchase);
       }
 
-      // writer.println("\nOther purchases: ");
+      writer.println("Other purchases: ");
       for (String purchase : otherPurchases) {
         writer.println(purchase);
+        // here, write a line that if empty line encountered, don't make a new line and continue
       }
-      
+
       totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
-      writer.printf("Total sum: $%.2f", totalPurchases);
-      // writer.println("Total sum: $" + totalPurchases);
-      
-      
+      //writer.println("\nTotal sum: $" + totalPurchases);
+
+      // writer.printf("Total sum: $%.2f", totalPurchases);
+      writer.println("Balance: $" + (income - totalPurchases) + "\n");
+
       writer.close();
     }  catch (IOException e) {
-      System.out.println("Error saving purchases to file"); 
+      System.out.println("Error saving purchases to file!");
     }
+  }
+
+  public static void loadPurchasesFromFile() {
+    try {
+      File file = new File("purchases.txt");
+      Scanner scanner = new Scanner(file);
+
+      // Clear existing purchase lists
+      foodPurchases.clear();
+      clothesPurchases.clear();
+      entertainmentPurchases.clear();
+      otherPurchases.clear();
+
+      String currentCategory = null; // Track the current category being processed
+
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
+
+        // Skip empty lines or lines starting with a specific label
+        // if (line.isEmpty() || line.startsWith("All Purchases:") || line.startsWith("Total sum:") || line.startsWith("Balance:")) {
+        //   continue;
+        // }
+
+        // Check if the line indicates a category
+        if (line.startsWith("Food")) {
+          currentCategory = "Food";
+        } else if (line.startsWith("Clothes")) {
+          currentCategory = "Clothes";
+        } else if (line.startsWith("Entertainment")) {
+          currentCategory = "Entertainment";
+        } else if (line.startsWith("Other")) {
+          currentCategory = "Other";
+        } else if (line.startsWith("Balance")) {
+          // saving the loaded balance from file to the class level variable "loadedBalance"
+          String balanceString = line.substring(line.indexOf("$") + 1);
+          loadedBalance = Double.parseDouble(balanceString);
+        }  else if (currentCategory != null) {
+          // Add the line to the respective list based on the current category
+          switch (currentCategory) {
+            case "Food":
+              foodPurchases.add(line);
+              break;
+            case "Clothes":
+              clothesPurchases.add(line);
+              break;
+            case "Entertainment":
+              entertainmentPurchases.add(line);
+              break;
+            case "Other":
+              otherPurchases.add(line);
+              break;
+          }
+        }
+      }
+      scanner.close();
+    } catch (IOException e) {
+      System.out.println("Error loading purchases from file");
+    }
+
   }
 
 }
