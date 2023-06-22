@@ -88,7 +88,8 @@ public class Main {
                 for (String purchase : foodPurchases) {
                   System.out.println(purchase);
                 }
-                System.out.println("Total sum: $" + total(foodPurchases));
+                System.out.printf("Total sum: $%.2f", total(foodPurchases));
+                // System.out.println("Total sum: $" + total(foodPurchases));
                 System.out.println();
               }
               break;
@@ -100,7 +101,8 @@ public class Main {
                 for (String purchase : clothesPurchases) {
                   System.out.println(purchase);
                 }
-                System.out.println("Total sum: $" + total(clothesPurchases));
+                System.out.printf("Total sum: $%.2f", total(clothesPurchases));
+                // System.out.println("Total sum: $" + total(clothesPurchases));
                 System.out.println();
               }
               break;
@@ -112,7 +114,8 @@ public class Main {
                 for (String purchase : entertainmentPurchases) {
                   System.out.println(purchase);
                 }
-                System.out.println("Total sum: $" + total(entertainmentPurchases));
+                System.out.printf("Total sum: $%.2f", total(entertainmentPurchases));
+                // System.out.println("Total sum: $" + total(entertainmentPurchases));
                 System.out.println();
               }
               break;
@@ -124,7 +127,8 @@ public class Main {
                 for (String purchase : otherPurchases) {
                   System.out.println(purchase);
                 }
-                System.out.println("Total sum: $" + total(otherPurchases));
+                System.out.printf("Total sum: $%.2f", total(otherPurchases));
+                // System.out.println("Total sum: $" + total(otherPurchases));
                 System.out.println();
               }
               break;
