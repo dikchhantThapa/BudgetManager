@@ -1,8 +1,13 @@
 All Purchases: 
-cabbages $13.42
+Food purchases: 
 milk $3.50
-tshirts $40.00
-shoes $119.09
-vests $10 each 10 total $100.01
-netflix $19.99
-Total sum: $296.01
+Clothes purchases: 
+vests $10 each 10 $100.00
+shoes $119.90
+Entertainment purchases: 
+netflix $15.00
+dance $55.56
+Other purchases: 
+county park parking day fee $6.00
+Balance: $700.04
+
