@@ -146,7 +146,7 @@ public class Main {
               for (String purchase : otherPurchases) {
                 System.out.println(purchase);
               }
-          
+
               totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
               // System.out.println("Total sum: $" + totalPurchases);       
               System.out.printf("Total sum: $%.2f", totalPurchases);
