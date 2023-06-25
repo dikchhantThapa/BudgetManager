@@ -1,12 +1,17 @@
 import java.util.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.IOException;
 
 public class Main {
 
+  public static Scanner scanner = new Scanner(System.in);
+
   private static double totalPurchases = 0.0;
   private static double income = 0.0;
+
+  private static boolean purchasesLoaded = false;  // Flag to track if purchases are loaded
 
   private static List<String> foodPurchases = new ArrayList<>();
   private static List<String> clothesPurchases = new ArrayList<>();
@@ -28,6 +33,7 @@ public class Main {
     System.out.println("4) Balance");
     System.out.println("5) Save");
     System.out.println("6) Load");
+    System.out.println("7) Analyze (Sort)");
     System.out.println("0) Exit");
 
 
@@ -173,7 +179,16 @@ public class Main {
       case "6":
         loadPurchasesFromFile();
         System.out.println("\nPurchases were loaded!");
+        purchasesLoaded = true; // purchase  flag marked as True when loaded
         menu();
+
+      case "7":
+        if (!purchasesLoaded) {
+          System.out.println("\nThe purchase list is empty!");
+          menu();
+        } else {
+          sort();
+        }
         
       case "0":
         System.out.println("\nBye!");
@@ -319,6 +334,80 @@ public class Main {
     }  catch (IOException e) {
       System.out.println("Error loading purchases from file!");
     }
+  }
+
+  public static void sort() {
+    int sortPick;
+    do {
+        System.out.println("\nHow do you want to sort?");
+        System.out.println("1) Sort all purchases");
+        System.out.println("2) Sort by type");
+        System.out.println("3) Sort certain type");
+        System.out.println("4) Back");
+
+        sortPick = scanner.nextInt();
+
+        switch (sortPick) {
+            case 1:
+                sortAllPurchases();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                menu();
+                break;
+        }
+    } while (sortPick != 4);
+}
+
+  public static void sortAllPurchases() {
+    Map<String, Double> allPurchasesMap = new HashMap<>();
+
+    try {
+      // open file for reading
+      File file = new File("purchases.txt");
+      Scanner scanner = new Scanner(file);
+
+      // iterate through each line of the file
+      while (scanner.hasNextLine()) {
+        String lineInPurchase = scanner.nextLine();
+
+        if (lineInPurchase.contains("Income")) {
+          continue;
+        }
+        
+        if (lineInPurchase.contains("$")) {
+          int lastIndex = lineInPurchase.lastIndexOf("$");
+
+          // extract the String part (1st part) --> key for HashMap
+          String stringPart = lineInPurchase.substring(0, lastIndex).trim();
+
+          // extract the Double number (2nd part) --> value for HashMap
+          String amountString = lineInPurchase.substring(lastIndex + 1).trim();
+          double amount = Double.parseDouble(amountString);
+
+          // convert the cost(double) to 2 decimal places before storing
+          amount = Math.round(amount * 100) / 100;
+          
+          // store String(items) and Double(item cost) in the map as key and value 
+          allPurchasesMap.put(stringPart, amount);
+        }
+      }
+      // close the file
+      scanner.close();
+    }  catch (FileNotFoundException e) {
+      System.out.println("File not found!");
+    }
+
+    System.out.println();
+    // Print the HashMap (unsorted)
+    for (var entry : allPurchasesMap.entrySet()) {
+      System.out.println(entry.getKey() + " $" + entry.getValue());
+    }
+    
+    
   }
 
 
