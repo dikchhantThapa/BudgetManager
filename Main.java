@@ -364,6 +364,8 @@ public class Main {
 
   public static void sortAllPurchases() {
     Map<String, Double> allPurchasesMap = new HashMap<>();
+    ArrayList<Double> pricesListAllPurchases = new ArrayList<>();
+    double sum = 0.0;
 
     try {
       // open file for reading
@@ -374,7 +376,13 @@ public class Main {
       while (scanner.hasNextLine()) {
         String lineInPurchase = scanner.nextLine();
 
-        if (lineInPurchase.contains("Income")) {
+        // ignore the line that shows Income
+        if (lineInPurchase.startsWith("Income")) {
+          continue;
+        }
+
+        // ignore the line that shows sum and calculate and print it later in print part
+        if (lineInPurchase.startsWith("Total sum")) {
           continue;
         }
         
@@ -390,7 +398,7 @@ public class Main {
           
           // store String(items) and Double(item cost) in the map as key and value 
           allPurchasesMap.put(stringPart, amount);
-        }
+        } 
       }
       // close the file
       scanner.close();
@@ -398,18 +406,28 @@ public class Main {
       System.out.println("File not found!");
     }
 
-    System.out.println();
-    // Print the HashMap (unsorted)
-    for (var entry : allPurchasesMap.entrySet()) {
-      String key = entry.getKey();
-      double value = entry.getValue();
-      System.out.printf(key + " $%.2f", value);  // output in 2 decimals 
-      System.out.println();
-      
-
-
-      // System.out.printf("Total sum: $%.2f", total(foodPurchases));
+    // add all prices onto our ArrayList for retrieval in the next step 
+    for (var price : allPurchasesMap.entrySet()) {
+      pricesListAllPurchases.add(price.getValue());
     }
+
+    // sorting the list in Decreasing order on the basis of price
+    Collections.sort(pricesListAllPurchases, Comparator.reverseOrder());
+
+    // print the unsorted HashMap in a sorted format
+    System.out.println();
+    for (var num : pricesListAllPurchases) {
+      for (var entry : allPurchasesMap.entrySet()) {
+        if (entry.getValue().equals(num)) {
+
+          String formattedNum = String.format("%.2f", num);
+          System.out.println(entry.getKey() + " $" + formattedNum);
+          sum += num;
+        }
+      }
+    }
+    System.out.printf("Total sum: $%.2f", sum);
+    System.out.println();
     
     
   }
