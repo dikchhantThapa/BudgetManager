@@ -387,9 +387,6 @@ public class Main {
           // extract the Double number (2nd part) --> value for HashMap
           String amountString = lineInPurchase.substring(lastIndex + 1).trim();
           double amount = Double.parseDouble(amountString);
-
-          // convert the cost(double) to 2 decimal places before storing
-          amount = Math.round(amount * 100) / 100;
           
           // store String(items) and Double(item cost) in the map as key and value 
           allPurchasesMap.put(stringPart, amount);
@@ -404,7 +401,14 @@ public class Main {
     System.out.println();
     // Print the HashMap (unsorted)
     for (var entry : allPurchasesMap.entrySet()) {
-      System.out.println(entry.getKey() + " $" + entry.getValue());
+      String key = entry.getKey();
+      double value = entry.getValue();
+      System.out.printf(key + " $%.2f", value);  // output in 2 decimals 
+      System.out.println();
+      
+
+
+      // System.out.printf("Total sum: $%.2f", total(foodPurchases));
     }
     
     
