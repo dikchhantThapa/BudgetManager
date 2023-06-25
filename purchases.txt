@@ -1,13 +1,18 @@
+Income: $10561.37
 All Purchases: 
 Food purchases: 
-milk $3.50
+groceries $500.00
+extras $155.00
 Clothes purchases: 
-vests $10 each 10 $100.00
 shoes $119.90
+general clothes tshirts, pants, etc.  $123.00
 Entertainment purchases: 
-netflix $15.00
-dance $55.56
+netflix $14.99
+spotify student $4.99
 Other purchases: 
-county park parking day fee $6.00
-Balance: $700.04
-
+Rent $2000.00
+county park parking $6.00
+gas $125.00
+phone bills $176.75
+insurance $82.32
+Total sum: $3307.95
