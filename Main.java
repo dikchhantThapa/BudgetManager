@@ -183,12 +183,13 @@ public class Main {
         menu();
 
       case "7":
-        if (!purchasesLoaded) {
-          System.out.println("\nThe purchase list is empty!");
-          menu();
-        } else {
-          sort();
-        }
+        sort();
+        // if (!purchasesLoaded) {
+        //   System.out.println("\nThe purchase list is empty!");
+        //   menu();
+        // } else {
+        //   sort();
+        // }
         
       case "0":
         System.out.println("\nBye!");
@@ -365,104 +366,120 @@ public class Main {
 }
 
   public static void sortAllPurchases() {
-    Map<String, Double> allPurchasesMap = new HashMap<>();
-    ArrayList<Double> pricesListAllPurchases = new ArrayList<>();
-    double sum = 0.0;
-
-    try {
-      // open file for reading
-      File file = new File("purchases.txt");
-      Scanner scanner = new Scanner(file);
-
-      // iterate through each line of the file
-      while (scanner.hasNextLine()) {
-        String lineInPurchase = scanner.nextLine();
-
-        // ignore the line that shows Income
-        if (lineInPurchase.startsWith("Income")) {
-          continue;
-        }
-
-        // ignore the line that shows sum and calculate and print it later in print part
-        if (lineInPurchase.startsWith("Total sum")) {
-          continue;
-        }
-        
-        if (lineInPurchase.contains("$")) {
-          int lastIndex = lineInPurchase.lastIndexOf("$");
-
-          // extract the String part (1st part) --> key for HashMap
-          String stringPart = lineInPurchase.substring(0, lastIndex).trim();
-
-          // extract the Double number (2nd part) --> value for HashMap
-          String amountString = lineInPurchase.substring(lastIndex + 1).trim();
-          double amount = Double.parseDouble(amountString);
+    if (purchasesLoaded == false) {
+      System.out.println("\nThe purchase list is empty!");
+    }  else {
+      Map<String, Double> allPurchasesMap = new HashMap<>();
+      ArrayList<Double> pricesListAllPurchases = new ArrayList<>();
+      double sum = 0.0;
+  
+      try {
+        // open file for reading
+        File file = new File("purchases.txt");
+        Scanner scanner = new Scanner(file);
+  
+        // iterate through each line of the file
+        while (scanner.hasNextLine()) {
+          String lineInPurchase = scanner.nextLine();
+  
+          // ignore the line that shows Income
+          if (lineInPurchase.startsWith("Income")) {
+            continue;
+          }
+  
+          // ignore the line that shows sum and calculate and print it later in print part
+          if (lineInPurchase.startsWith("Total sum")) {
+            continue;
+          }
           
-          // store String(items) and Double(item cost) in the map as key and value 
-          allPurchasesMap.put(stringPart, amount);
-        } 
+          if (lineInPurchase.contains("$")) {
+            int lastIndex = lineInPurchase.lastIndexOf("$");
+  
+            // extract the String part (1st part) --> key for HashMap
+            String stringPart = lineInPurchase.substring(0, lastIndex).trim();
+  
+            // extract the Double number (2nd part) --> value for HashMap
+            String amountString = lineInPurchase.substring(lastIndex + 1).trim();
+            double amount = Double.parseDouble(amountString);
+            
+            // store String(items) and Double(item cost) in the map as key and value 
+            allPurchasesMap.put(stringPart, amount);
+          } 
+        }
+        // close the file
+        scanner.close();
+      }  catch (FileNotFoundException e) {
+        System.out.println("File not found!");
       }
-      // close the file
-      scanner.close();
-    }  catch (FileNotFoundException e) {
-      System.out.println("File not found!");
-    }
-
-    // add all prices onto our ArrayList for retrieval in the next step 
-    for (var price : allPurchasesMap.entrySet()) {
-      pricesListAllPurchases.add(price.getValue());
-    }
-
-    // sorting the list in Decreasing order on the basis of price
-    Collections.sort(pricesListAllPurchases, Comparator.reverseOrder());
-
-    // print the unsorted HashMap in a sorted format
-    System.out.println();
-    System.out.println("All:");
-    for (var num : pricesListAllPurchases) {
-      for (var entry : allPurchasesMap.entrySet()) {
-        if (entry.getValue().equals(num)) {
-
-          String formattedNum = String.format("%.2f", num);
-          System.out.println(entry.getKey() + " $" + formattedNum);
-          sum += num;
+  
+      // add all prices onto our ArrayList for retrieval in the next step 
+      for (var price : allPurchasesMap.entrySet()) {
+        pricesListAllPurchases.add(price.getValue());
+      }
+  
+      // sorting the list in Decreasing order on the basis of price
+      Collections.sort(pricesListAllPurchases, Comparator.reverseOrder());
+  
+      // print the unsorted HashMap in a sorted format
+      System.out.println();
+      System.out.println("All:");
+      for (var num : pricesListAllPurchases) {
+        for (var entry : allPurchasesMap.entrySet()) {
+          if (entry.getValue().equals(num)) {
+  
+            String formattedNum = String.format("%.2f", num);
+            System.out.println(entry.getKey() + " $" + formattedNum);
+            sum += num;
+          }
         }
       }
+      System.out.printf("Total sum: $%.2f", sum);
+      System.out.println();
     }
-    System.out.printf("Total sum: $%.2f", sum);
-    System.out.println();
+    
+
   }
 
   public static void sortByType() {
-    HashMap<String, Double> sortByTypeMap = new HashMap<>();
-    ArrayList<Double> sortedTotalsByType = new ArrayList<>();
-
-    // add all the total values into the ArrayList
-    sortedTotalsByType.add(total(foodPurchases));
-    sortedTotalsByType.add(total(clothesPurchases));
-    sortedTotalsByType.add(total(entertainmentPurchases));
-    sortedTotalsByType.add(total(otherPurchases));
-    
-    // now sort the ArrayList in decreasing order
-    Collections.sort(sortedTotalsByType, Collections.reverseOrder());
-
-    sortByTypeMap.put("Food - $", total(foodPurchases));
-    sortByTypeMap.put("Clothes - $", total(clothesPurchases));
-    sortByTypeMap.put("Entertainment - $", total(entertainmentPurchases));
-    sortByTypeMap.put("Other - $", total(otherPurchases));
-
-    System.out.println();
-    for (var total : sortedTotalsByType) {
-      for (var item : sortByTypeMap.entrySet()) {
-        if (item.getValue().equals(total)) {
-          String key = item.getKey();
-
-          String formattedValue = String.format("%.2f", total);
-          System.out.println(key + formattedValue);  // output key and value by type in decreasing order 
+    if (purchasesLoaded == false) {
+      System.out.println("\nTypes:");
+      System.out.println("Food - $0");
+      System.out.println("Entertainment - $0");
+      System.out.println("Clothes - $0");
+      System.out.println("Other - $0");
+      System.out.println("Total sum: $0");
+    }  else {
+      HashMap<String, Double> sortByTypeMap = new HashMap<>();
+      ArrayList<Double> sortedTotalsByType = new ArrayList<>();
+  
+      // add all the total values into the ArrayList
+      sortedTotalsByType.add(total(foodPurchases));
+      sortedTotalsByType.add(total(clothesPurchases));
+      sortedTotalsByType.add(total(entertainmentPurchases));
+      sortedTotalsByType.add(total(otherPurchases));
+      
+      // now sort the ArrayList in decreasing order
+      Collections.sort(sortedTotalsByType, Collections.reverseOrder());
+  
+      sortByTypeMap.put("Food - $", total(foodPurchases));
+      sortByTypeMap.put("Clothes - $", total(clothesPurchases));
+      sortByTypeMap.put("Entertainment - $", total(entertainmentPurchases));
+      sortByTypeMap.put("Other - $", total(otherPurchases));
+  
+      System.out.println();
+      System.out.println("Types:");
+      for (var total : sortedTotalsByType) {
+        for (var item : sortByTypeMap.entrySet()) {
+          if (item.getValue().equals(total)) {
+            String key = item.getKey();
+  
+            String formattedValue = String.format("%.2f", total);
+            System.out.println(key + formattedValue);  // output key and value by type in decreasing order 
+          }
         }
       }
+      System.out.println("Sum: $" + totalPurchases);
     }
-    System.out.println("Sum: $" + totalPurchases);
   }
 
   public static void sortCertainType() {
@@ -470,34 +487,39 @@ public class Main {
     System.out.println("\nChoose the type of purchase");
     System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other");
     int whichType = scanner.nextInt();  // user pick 
-    
-    switch (whichType) {
-      case 1:
-        System.out.println("\nFood:");
-        sortCertainTypeCalc(foodPurchases);
-        System.out.printf("Total sum: $%.2f", total(foodPurchases));
-        System.out.println("");
-        break;
-      case 2:
-        System.out.println("\nClothes:");
-        sortCertainTypeCalc(clothesPurchases);
-        System.out.printf("Total sum: $%.2f", total(clothesPurchases));
-        System.out.println("");
-        break;
-      case 3:
-        System.out.println("\nEntertainment:");
-        sortCertainTypeCalc(entertainmentPurchases);
-        System.out.printf("Total sum: $%.2f", total(entertainmentPurchases));
-        System.out.println("");
-        break;
-      case 4:
-        System.out.println("\nOther:");
-        sortCertainTypeCalc(otherPurchases);
-        System.out.printf("Total sum: $%.2f", total(otherPurchases));
-        System.out.println("");
-        break;
+
+    if (purchasesLoaded == false) {
+      System.out.println("\nThe purchase list is empty!");
+    }  else {
+      switch (whichType) {
+        case 1:
+          System.out.println("\nFood:");
+          sortCertainTypeCalc(foodPurchases);
+          System.out.printf("Total sum: $%.2f", total(foodPurchases));
+          System.out.println("");
+          break;
+        case 2:
+          System.out.println("\nClothes:");
+          sortCertainTypeCalc(clothesPurchases);
+          System.out.printf("Total sum: $%.2f", total(clothesPurchases));
+          System.out.println("");
+          break;
+        case 3:
+          System.out.println("\nEntertainment:");
+          sortCertainTypeCalc(entertainmentPurchases);
+          System.out.printf("Total sum: $%.2f", total(entertainmentPurchases));
+          System.out.println("");
+          break;
+        case 4:
+          System.out.println("\nOther:");
+          sortCertainTypeCalc(otherPurchases);
+          System.out.printf("Total sum: $%.2f", total(otherPurchases));
+          System.out.println("");
+          break;
+      }
+      sort();  // go back to the Sort Menu after particular purchase 
     }
-    sort();  // go back to the Sort Menu after particular purchase 
+
   }
 
   public static void sortCertainTypeCalc(List<String> purchaseType) {
