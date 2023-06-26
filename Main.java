@@ -352,7 +352,7 @@ public class Main {
                 sortAllPurchases();
                 break;
             case 2:
-                // sortByType();
+                sortByType();
                 break;
             case 3:
                 sortCertainType();
@@ -433,9 +433,37 @@ public class Main {
     System.out.println();
   }
 
-  // public static void sortByType() {
+  public static void sortByType() {
+    HashMap<String, Double> sortByTypeMap = new HashMap<>();
+    ArrayList<Double> sortedTotalsByType = new ArrayList<>();
+
+    // add all the total values into the ArrayList
+    sortedTotalsByType.add(total(foodPurchases));
+    sortedTotalsByType.add(total(clothesPurchases));
+    sortedTotalsByType.add(total(entertainmentPurchases));
+    sortedTotalsByType.add(total(otherPurchases));
     
-  // }
+    // now sort the ArrayList in decreasing order
+    Collections.sort(sortedTotalsByType, Collections.reverseOrder());
+
+    sortByTypeMap.put("Food - $", total(foodPurchases));
+    sortByTypeMap.put("Clothes - $", total(clothesPurchases));
+    sortByTypeMap.put("Entertainment - $", total(entertainmentPurchases));
+    sortByTypeMap.put("Other - $", total(otherPurchases));
+
+    System.out.println();
+    for (var total : sortedTotalsByType) {
+      for (var item : sortByTypeMap.entrySet()) {
+        if (item.getValue().equals(total)) {
+          String key = item.getKey();
+
+          String formattedValue = String.format("%.2f", total);
+          System.out.println(key + formattedValue);  // output key and value by type in decreasing order 
+        }
+      }
+    }
+    System.out.println("Sum: $" + totalPurchases);
+  }
 
   public static void sortCertainType() {
     
