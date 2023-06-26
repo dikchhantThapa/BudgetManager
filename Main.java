@@ -352,8 +352,10 @@ public class Main {
                 sortAllPurchases();
                 break;
             case 2:
+                // sortByType();
                 break;
             case 3:
+                sortCertainType();
                 break;
             case 4:
                 menu();
@@ -416,6 +418,7 @@ public class Main {
 
     // print the unsorted HashMap in a sorted format
     System.out.println();
+    System.out.println("All:");
     for (var num : pricesListAllPurchases) {
       for (var entry : allPurchasesMap.entrySet()) {
         if (entry.getValue().equals(num)) {
@@ -428,10 +431,51 @@ public class Main {
     }
     System.out.printf("Total sum: $%.2f", sum);
     System.out.println();
-    
-    
   }
 
+  // public static void sortByType() {
+    
+  // }
+
+  public static void sortCertainType() {
+    
+    System.out.println("\nChoose the type of purchase");
+    System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other");
+    int whichType = scanner.nextInt();  // user pick 
+    
+    switch (whichType) {
+      case 1:
+        System.out.println("\nFood:");
+        sortCertainTypeCalc(foodPurchases);
+        System.out.printf("Total sum: $%.2f", total(foodPurchases));
+        System.out.println("");
+        break;
+      case 2:
+        System.out.println("\nClothes:");
+        sortCertainTypeCalc(clothesPurchases);
+        System.out.printf("Total sum: $%.2f", total(clothesPurchases));
+        System.out.println("");
+        break;
+      case 3:
+        System.out.println("\nEntertainment:");
+        sortCertainTypeCalc(entertainmentPurchases);
+        System.out.printf("Total sum: $%.2f", total(entertainmentPurchases));
+        System.out.println("");
+        break;
+      case 4:
+        System.out.println("\nOther:");
+        sortCertainTypeCalc(otherPurchases);
+        System.out.printf("Total sum: $%.2f", total(otherPurchases));
+        System.out.println("");
+        break;
+    }
+    sort();  // go back to the Sort Menu after particular purchase 
+  }
+
+  public static void sortCertainTypeCalc(List<String> purchaseType) {
+    // now we got individual ArrayList imported here 
+    System.out.println(purchaseType);
+  }
 
 
 }
