@@ -474,7 +474,45 @@ public class Main {
 
   public static void sortCertainTypeCalc(List<String> purchaseType) {
     // now we got individual ArrayList imported here 
-    System.out.println(purchaseType);
+
+    HashMap<String, Double> sortCertainMap = new HashMap<>();
+    ArrayList<Double> sortedCertainType = new ArrayList<>();
+
+    // storing ArrayList into a HashMap so retrieval is easy with Key and Value 
+    for (var individualPurchase : purchaseType) {
+      if (individualPurchase.contains("$")) {
+        int lastIndex = individualPurchase.lastIndexOf("$");
+
+        // extract the String part (1st part) --> key for HashMap
+        String stringPart = individualPurchase.substring(0, lastIndex).trim();
+
+        // extract the Double number (2nd part) --> value for HashMap
+        String amountString = individualPurchase.substring(lastIndex + 1).trim();
+        double amount = Double.parseDouble(amountString);
+
+        // store String(items) and Double(item cost) in the map as key and value 
+        sortCertainMap.put(stringPart, amount);
+      }
+    }
+
+    // add all prices onto our ArrayList for retrieval in the next step 
+    for (var price : sortCertainMap.entrySet()) {
+      sortedCertainType.add(price.getValue());
+    }
+
+    // sorting the list in Decreasing order on the basis of price
+    Collections.sort(sortedCertainType, Comparator.reverseOrder());
+
+    // retrieving the sorted values and outputting it 
+    for (var num : sortedCertainType) {
+      for (var entry : sortCertainMap.entrySet()) {
+        if (entry.getValue().equals(num)) {
+          String formattedNum = String.format("%.2f", num);
+          System.out.println(entry.getKey() + " $" + formattedNum);  // this outputs the sorted map
+        }
+      }
+    }
+    
   }
 
 
