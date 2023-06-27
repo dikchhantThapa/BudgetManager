@@ -149,7 +149,7 @@ public class Main {
               }
         
               totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
-              System.out.printf("Total sum this is from case 3: $%.2f", totalPurchases);              
+              System.out.printf("Total sum: $%.2f", totalPurchases);              
               System.out.println("\n");
         
               break;
