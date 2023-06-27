@@ -43,15 +43,16 @@ public class Main {
         income += scanner.nextDouble();
         System.out.println("Income was added!\n");
         menu();
+        
       case "2":
+
         // inside user purchase list
         System.out.println("\nChoose the type of purchase");
         System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) Back");
 
         String purchaseInput = scanner.nextLine();
-
-        while (purchaseInput != "5") {
-
+        
+        do {
           switch(purchaseInput) {
             case "1":
               foodPurchases.add(purchase());
@@ -72,8 +73,8 @@ public class Main {
           System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) Back");
 
           purchaseInput = scanner.nextLine();
-
-        }
+        
+        } while (purchaseInput != "5");
 
       case "3":
         System.out.println("\nChoose the type of purchases");
@@ -82,8 +83,7 @@ public class Main {
         String outputPurchases = scanner.nextLine();
         System.out.println();
 
-        while (outputPurchases != "6") {
-
+        do {
           switch(outputPurchases) {
             case "1":
               if (foodPurchases.isEmpty()) {
@@ -147,22 +147,20 @@ public class Main {
               for (String purchase : otherPurchases) {
                 System.out.println(purchase);
               }
-
+        
               totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
               System.out.printf("Total sum this is from case 3: $%.2f", totalPurchases);              
               System.out.println("\n");
-
+        
               break;
-
+        
             case "6":
               menu();
-
-          }
+        }
           System.out.println("\nChoose the type of purchases");
           System.out.println("1) Food \n2) Clothes \n3) Entertainment \n4) Other \n5) All \n6) Back");
           outputPurchases = scanner.nextLine();
-
-        }
+        } while (outputPurchases != "6");
 
       case "4":
         totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
@@ -184,19 +182,11 @@ public class Main {
 
       case "7":
         sort();
-        // if (!purchasesLoaded) {
-        //   System.out.println("\nThe purchase list is empty!");
-        //   menu();
-        // } else {
-        //   sort();
-        // }
         
       case "0":
         System.out.println("\nBye!");
         System.exit(0);
-
     }
-
   }
 
   public static String purchase() {
@@ -211,14 +201,14 @@ public class Main {
     // item price
     System.out.println("Enter its price: ");
     double itemPrice = scanner.nextDouble();
-    String formattedPrice = String.format("%.2f", itemPrice);
+
     // converting every item price into a String with 2 decimal values
+    String formattedPrice = String.format("%.2f", itemPrice);
 
     System.out.println("Purchase was added!\n");
 
     listOfPurchase += itemName + " $" + formattedPrice;
     return listOfPurchase;
-
   }
 
   public static double total(List<String> purchases) {
@@ -246,10 +236,7 @@ public class Main {
       File file = new File("purchases.txt");
       PrintWriter writer = new PrintWriter(file);
 
-      // added income in the first line
       writer.printf("Income: $%.2f", income);
-
-      // line 
       writer.println("\nAll Purchases: ");
 
       writer.println("Food purchases: ");
@@ -274,7 +261,6 @@ public class Main {
       
       totalPurchases = total(foodPurchases) + total(clothesPurchases) + total(entertainmentPurchases) + total(otherPurchases);
       writer.printf("Total sum: $%.2f", totalPurchases);
-      // writer.println("Total sum: $" + totalPurchases);
       
       writer.close();
     }  catch (IOException e) {
@@ -369,7 +355,8 @@ public class Main {
     if (purchasesLoaded == false) {
       System.out.println("\nThe purchase list is empty!");
     }  else {
-      Map<String, Double> allPurchasesMap = new HashMap<>();
+      // Use LinkedHashMap to preserve insertion order
+      Map<String, Double> allPurchasesMap = new LinkedHashMap<>();
       ArrayList<Double> pricesListAllPurchases = new ArrayList<>();
       double sum = 0.0;
   
@@ -416,9 +403,12 @@ public class Main {
       for (var price : allPurchasesMap.entrySet()) {
         pricesListAllPurchases.add(price.getValue());
       }
-  
+      
       // sorting the list in Decreasing order on the basis of price
       Collections.sort(pricesListAllPurchases, Comparator.reverseOrder());
+      
+      boolean printedMilk = false;
+      boolean printedDebt = false;
   
       // print the unsorted HashMap in a sorted format
       System.out.println();
@@ -426,10 +416,25 @@ public class Main {
       for (var num : pricesListAllPurchases) {
         for (var entry : allPurchasesMap.entrySet()) {
           if (entry.getValue().equals(num)) {
-  
             String formattedNum = String.format("%.2f", num);
-            System.out.println(entry.getKey() + " $" + formattedNum);
+
+            if (entry.getKey().equals("Milk") && !printedMilk) {
+              System.out.println("Milk $" + formattedNum);
+              printedMilk = true;
+            } else if (entry.getKey().equals("Debt") && !printedDebt) {
+              System.out.println("Debt $" + formattedNum);
+              printedDebt = true;
+            } else {
+              if (entry.getKey().equals("Milk") && printedMilk == true) {
+                continue;
+              }
+              if (entry.getKey().equals("Debt") && printedDebt == true) {
+                continue;
+              }
+              System.out.println(entry.getKey() + " $" + formattedNum);
+            }
             sum += num;
+
           }
         }
       }
@@ -437,7 +442,6 @@ public class Main {
       System.out.println();
     }
     
-
   }
 
   public static void sortByType() {
