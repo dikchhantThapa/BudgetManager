@@ -1,5 +1,13 @@
 # BudgetManager
 
+## Video Walkthrough
+
+Here's a walkthrough of the program output:
+
+<img src='budget_manager_run.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+## Program Description 
+
 This program displays a Budget Manager menu that consists of a Main Menu of items and functions. Then it assigns a purchase to a specific category from the menu. It also has functions that shows the list of purchases and the balance. 
 
 What's the point of counting the money if the results are lost and forgotten once you close the program? To allow for some long-term budget planning, we can also Save purchases to a file *"purchases.txt"*. And we can also Load data from our file to the menu.
