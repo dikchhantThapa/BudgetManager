@@ -4,7 +4,7 @@
 
 Here's a walkthrough of the program output:
 
-<img src='budget_manager_run.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='budget_manager_run.gif' title='Video Walkthrough' height=65% width=65% alt='Video Walkthrough' />
 
 ## Program Description 
 
